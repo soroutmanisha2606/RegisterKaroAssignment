@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -24,138 +26,172 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); 
-  // Fetch all companies on component mount
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch("/api/companies");
-        if (!res.ok) throw new Error("Failed to fetch companies.");
-        const data = await res.json();
-        setCompanies(data.companies);
-      } catch (err: any) {
-        setError(err.message || "An unknown error occurred.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCompanies();
-  }, []);
+  const hardcodedCompanies: Company[] = [
+    { id: 1, name: 'TechCorp', details: 'TechCorp is a leading innovator in the tech industry, constantly pushing boundaries with groundbreaking software and hardware solutions. With a focus on artificial intelligence, cloud computing, and cybersecurity, TechCorp is redefining how businesses and consumers interact with technology' },
+    { id: 2, name: 'HealthInc', details: 'HealthInc is revolutionizing the healthcare landscape by developing cutting-edge solutions that improve patient care and enhance healthcare provider efficiency. Through telemedicine, AI-driven diagnostics, and personalized health platforms, HealthInc is making healthcare more accessible and affordable for all.' },
+    { id: 3, name: 'EcoSolutions', details: 'EcoSolutions is committed to sustainable innovation, offering eco-friendly products and services that promote environmental conservation. From renewable energy solutions to waste reduction technologies, EcoSolutions is at the forefront of the green revolution, helping businesses and individuals reduce their carbon footprint and contribute to a healthier planet..' }
+  ];
 
-  const fetchCompanyDetails = async (id: number) => {
+  const hardcodedDirectors: Director[] = [
+    { id: 1, name: 'Alice Johnson' },
+    { id: 2, name: 'Bob Smith' },
+    { id: 3, name: 'Clara Lee' },
+    { id: 4, name: 'David Kim' }
+  ]
+  useEffect(() => {
+    // Simulate fetching the companies
+    setCompanies(hardcodedCompanies);
+  }, []);
+  const fetchCompanyDetails = (id: number) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/companies?id=${id}`);
-      if (!res.ok) throw new Error("Failed to fetch company details.");
-      const data: SelectedCompany = await res.json();
-      setSelectedCompany(data);
+      // Find the selected company and its directors from the hardcoded data
+      const company = hardcodedCompanies.find((company) => company.id === id);
+      const directors = hardcodedDirectors.filter((director) => director.id === id);
+
+      if (!company) throw new Error('Company not found.');
+
+      setSelectedCompany({ company, directors });
     } catch (err: any) {
-      setError(err.message || "An unknown error occurred.");
+      setError(err.message || 'An unknown error occurred.');
     } finally {
       setLoading(false);
     }
   };
+  // Fetch all companies on component mount
+  // useEffect(() => {
+  //   const fetchCompanies = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await fetch("/api/companies");
+  //       if (!res.ok) throw new Error("Failed to fetch companies.");
+  //       const data = await res.json();
+  //       setCompanies(data.companies);
+  //     } catch (err: any) {
+  //       setError(err.message || "An unknown error occurred.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchCompanies();
+  // }, []);
+
+  // const fetchCompanyDetails = async (id: number) => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const res = await fetch(`/api/companies?id=${id}`);
+  //     if (!res.ok) throw new Error("Failed to fetch company details.");
+  //     const data: SelectedCompany = await res.json();
+  //     setSelectedCompany(data);
+  //   } catch (err: any) {
+  //     setError(err.message || "An unknown error occurred.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       {/* Navbar */}
       <nav className="bg-gray-60 text-grey shadow-md">
-        <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <img
-              className="w-10"
-              src="https://www.registerkaro.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FLogo.77348f99.png&w=96&q=75"
-              alt="Logo"
-            />
-            <h1 className="text-2xl font-bold">
-              Register<span className="text-orange-500">Karo</span>
-            </h1>
-          </div>
+  <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+    {/* Logo */}
+    <div className="flex items-center space-x-2">
+      <img
+        className="w-10"
+        src="https://www.registerkaro.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FLogo.77348f99.png&w=96&q=75"
+        alt="Logo"
+      />
+      <h1 className="text-2xl font-bold">
+        Register<span className="text-orange-500">Karo</span>
+      </h1>
+    </div>
 
-          {/* Menu for larger screens */}
-          <ul className="hidden md:flex space-x-4">
-            <li>
-              <a href="#home" className="hover:underline">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="hover:underline">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#services" className="hover:underline">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="hover:underline">
-                Contact
-              </a>
-            </li>
-            <li>
-              <button className="bg-orange-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-orange-600">
-                Talk to an Expert
-              </button>
-            </li>
-          </ul>
+    {/* Menu for larger screens */}
+    <ul className="hidden md:flex space-x-4">
+      <li>
+        <a href="#home" className="hover:underline">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#about" className="hover:underline">
+          About
+        </a>
+      </li>
+      <li>
+        <a href="#services" className="hover:underline">
+          Services
+        </a>
+      </li>
+      <li>
+        <a href="#contact" className="hover:underline">
+          Contact
+        </a>
+      </li>
+      <li>
+        <button className="bg-orange-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-orange-600">
+          Talk to an Expert
+        </button>
+      </li>
+    </ul>
 
-          {/* Hamburger Menu for smaller screens */}
-          <button
-            className="bg-gray-60 text-grey shadow-md focus:outline-none"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
-        </div>
+    {/* Hamburger Menu for smaller screens */}
+    <button
+      className="md:hidden text-grey focus:outline-none"
+      onClick={() => setIsMenuOpen(!isMenuOpen)}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+        />
+      </svg>
+    </button>
+  </div>
 
-        {/* Dropdown Menu for smaller screens */}
-        {isMenuOpen && (
-          <ul className="bg-gray-60 text-grey shadow-md px-4 py-2 space-y-2">
-            <li>
-              <a href="#home" className="block hover:underline">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="block hover:underline">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#services" className="block hover:underline">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="block hover:underline">
-                Contact
-              </a>
-            </li>
-            <li>
-              <button className="w-full bg-orange-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-orange-600">
-                Talk to an Expert
-              </button>
-            </li>
-          </ul>
-        )}
-      </nav>
+  {/* Dropdown Menu for smaller screens */}
+  {isMenuOpen && (
+    <ul className="md:hidden bg-gray-60 text-grey px-4 py-2 space-y-2">
+      <li>
+        <a href="#home" className="block hover:underline">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#about" className="block hover:underline">
+          About
+        </a>
+      </li>
+      <li>
+        <a href="#services" className="block hover:underline">
+          Services
+        </a>
+      </li>
+      <li>
+        <a href="#contact" className="block hover:underline">
+          Contact
+        </a>
+      </li>
+      <li>
+        <button className="w-full bg-orange-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-orange-600">
+          Talk to an Expert
+        </button>
+      </li>
+    </ul>
+  )}
+</nav>
+
 
       {/* Header Section */}
       <header className="relative bg-gradient-to-r from-blue-500 to-purple-600 text-white p-12 text-center" style={{ backgroundImage: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj0uH-9tSXpP1zwlPL-VdMixqfTOnatvpogQ&s")' }}>
@@ -261,7 +297,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-blue-800 text-white p-8">
+      <footer className="bg-[#0d1321] text-[rgb(248,249,255)] p-8">
   <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
     {/* About Section */}
     <div>
@@ -316,7 +352,7 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="mt-2 bg-white text-blue-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-200"
+          className="mt-2 bg-[rgb(248,249,255)] text-[#0d1321] px-4 py-2 rounded-md shadow-md hover:bg-gray-200"
         >
           Subscribe
         </button>
@@ -333,6 +369,7 @@ export default function Home() {
     </p>
   </div>
 </footer>
+
 
     </div>
   );
