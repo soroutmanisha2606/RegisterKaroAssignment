@@ -105,7 +105,7 @@ export default function Home() {
 
           {/* Hamburger Menu for smaller screens */}
           <button
-            className="md:hidden text-white focus:outline-none"
+            className="bg-gray-60 text-grey shadow-md focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg
@@ -127,7 +127,7 @@ export default function Home() {
 
         {/* Dropdown Menu for smaller screens */}
         {isMenuOpen && (
-          <ul className="md:hidden bg-blue-700 text-white px-4 py-2 space-y-2">
+          <ul className="bg-gray-60 text-grey shadow-md px-4 py-2 space-y-2">
             <li>
               <a href="#home" className="block hover:underline">
                 Home
@@ -173,39 +173,40 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="bg-white py-12">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6 justify-content:space-between">
-          {/* About Text */}
-          <div className="md:w-1/2">
-            <p className="text-orange-600 uppercase font-bold text-sm mb-2">
-              Welcome to RegisterKaro.in
-            </p>
-            <h2 className="text-3xl font-bold mb-4">
-              About <span className="text-orange-500">Register Karo</span>
-            </h2>
-            <p className="text-gray-700 mb-4">
-              We have been using Intelegencia as our DevOps vendor for our field service
-              applications over the last couple of years, and I’m extremely pleased with their
-              performance, ability to execute, and willingness to adapt in our ever-changing
-              environment.
-            </p>
-            <p className="text-gray-700">
-              I would strongly recommend their services to any organization that is looking for
-              solid, reliable, and predictable outcomes.
-            </p>
-            <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-700">
-              Learn More
-            </button>
-          </div>
-          {/* About Image */}
-          <div className="md:w-1/2">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8cf69SG9jteBQuNobhxqVYumy700NPE15PQ&s"
-              alt="Team at Register Karo"
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-        </div>
-      </section>
+  <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6">
+    {/* About Text */}
+    <div className="md:w-1/2">
+      <p className="text-orange-600 uppercase font-bold text-sm mb-2">
+        Welcome to RegisterKaro.in
+      </p>
+      <h2 className="text-3xl font-bold mb-4">
+        About <span className="text-orange-500">Register Karo</span>
+      </h2>
+      <p className="text-gray-700 mb-4">
+        We have been using Intelegencia as our DevOps vendor for our field service applications
+        over the last couple of years, and I’m extremely pleased with their performance, ability
+        to execute, and willingness to adapt in our ever-changing environment.
+      </p>
+      <p className="text-gray-700">
+        I would strongly recommend their services to any organization that is looking for solid,
+        reliable, and predictable outcomes.
+      </p>
+      <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-700">
+        Learn More
+      </button>
+    </div>
+    {/* About Image */}
+    <div className="md:w-1/2 flex justify-center">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8cf69SG9jteBQuNobhxqVYumy700NPE15PQ&s"
+        alt="Team at Register Karo"
+        className="rounded-lg shadow-lg w-[400px] h-[300px] object-cover md:w-[500px] md:h-[350px]"
+      />
+    </div>
+  </div>
+</section>
+
+
 
       {/* Happy Clients Section */}
       <section id="happy-clients" className="py-12 bg-gray-100">
@@ -260,54 +261,79 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-blue-800 text-white p-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <h4 className="font-bold mb-2">Register Karo</h4>
-            <p>Helping businesses with compliance needs across the globe.</p>
-          </div>
-          <div>
-            <h4 className="font-bold mb-2">Quick Links</h4>
-            <ul>
-              <li>
-                <a href="#home" className="hover:underline">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:underline">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:underline">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-2">Follow Us</h4>
-            <ul>
-              <li>
-                <a href="#" className="hover:underline">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <footer className="bg-blue-800 text-white p-8">
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+    {/* About Section */}
+    <div>
+      <h4 className="font-bold mb-2">Register Karo</h4>
+      <p>Helping businesses with compliance needs across the globe. From company registration to tax filing, we simplify the process for entrepreneurs.</p>
+    </div>
+
+    {/* Quick Links Section */}
+    <div>
+      <h4 className="font-bold mb-2">Quick Links</h4>
+      <ul>
+        <li>
+          <a href="#home" className="hover:underline">Home</a>
+        </li>
+        <li>
+          <a href="#services" className="hover:underline">Services</a>
+        </li>
+        <li>
+          <a href="#about" className="hover:underline">About Us</a>
+        </li>
+        <li>
+          <a href="#blog" className="hover:underline">Blog</a>
+        </li>
+        <li>
+          <a href="#contact" className="hover:underline">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+    {/* Contact Information Section */}
+    <div>
+      <h4 className="font-bold mb-2">Contact Us</h4>
+      <ul>
+        <li>📍 123 Business Avenue, Tech City</li>
+        <li>📞 +1-800-123-4567</li>
+        <li>✉️ support@registerkaro.com</li>
+        <li>
+          <a href="#faq" className="hover:underline">FAQs</a>
+        </li>
+      </ul>
+    </div>
+
+    {/* Newsletter Subscription Section */}
+    <div>
+      <h4 className="font-bold mb-2">Subscribe to Our Newsletter</h4>
+      <p>Get the latest updates and tips delivered to your inbox.</p>
+      <form className="mt-4">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="p-2 rounded-md w-full text-black"
+        />
+        <button
+          type="submit"
+          className="mt-2 bg-white text-blue-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-200"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {/* Bottom Section */}
+  <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm">
+    <p>&copy; {new Date().getFullYear()} Register Karo. All rights reserved.</p>
+    <p>
+      <a href="#terms" className="hover:underline">Terms & Conditions</a> | 
+      <a href="#privacy" className="hover:underline"> Privacy Policy</a>
+    </p>
+  </div>
+</footer>
+
     </div>
   );
 }
